@@ -1,0 +1,10 @@
+{
+  "parserOptions": {
+    "ecmaVersion": 2019
+  },
+  "extends": "airbnb-base/legacy",
+  "rules": {
+    "no-console": "off",
+    "strict": "off"
+  }
+}
