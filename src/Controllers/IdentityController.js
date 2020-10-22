@@ -1,4 +1,4 @@
-class IdentityUtility {
+class IdentityController {
   constructor(dashClient) {
     this.dash = dashClient;
   }
@@ -6,8 +6,8 @@ class IdentityUtility {
   async getById(identityId) {
     const identity = await this.dash.platform.identities.get(identityId);
 
-    console.dir(identity, 100);
+    console.dir(identity, { depth: 100 });
   }
 }
 
-module.exports = IdentityUtility;
+module.exports = IdentityController;

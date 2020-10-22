@@ -1,5 +1,5 @@
 const Yargs = require('yargs');
-const Facade = require('./Facade');
+const Controllers = require('./Controllers/Controllers');
 
 (async function main() {
   const options = {};
@@ -8,7 +8,7 @@ const Facade = require('./Facade');
     options.seeds = process.env.DAPI_SEEDS.split(',');
   }
 
-  const facade = new Facade(options);
+  const controllers = new Controllers(options);
 
   await Yargs
     .command('transition parse [stHex]', 'parse state transition hex', (yargs) => {
@@ -17,7 +17,7 @@ const Facade = require('./Facade');
       });
     },
     async (argv) => {
-      await facade.stateTransitions.parse(argv.stHex);
+      await controllers.stateTransitions.parse(argv.stHex);
     })
     .command('identity get [identityId]', 'show parsed identity with this id', (yargs) => {
       yargs.positional('identityId', {
@@ -25,7 +25,29 @@ const Facade = require('./Facade');
       });
     },
     async (argv) => {
-      await facade.identities.getById(argv.identityId);
+      await controllers.identities.getById(argv.identityId);
+    })
+    .command('block get [blockHash]', 'show block for a specific block hash', (yargs) => {
+      yargs.positional('blockHash', {
+        describe: 'hex of the block hash'
+      });
+    },
+    async (argv) => {
+      await controllers.blocks.getByHash(argv.blockHash);
+    })
+    .command('wallet send [privateKey] [addressTo] [amount]', 'send funds from a private key to an address', (yargs) => {
+      yargs.positional('privateKey', {
+        describe: 'private key to take money from'
+      });
+      yargs.positional('addressTo', {
+        describe: 'address to send funds to'
+      });
+      yargs.positional('amount', {
+        describe: 'amount to send',
+        type: 'number'
+      });
+    }, async (argv) => {
+      await controllers.wallet.send(argv.privateKey, argv.addressTo, argv.amount);
     })
     .option('verbose', {
       alias: 'v',

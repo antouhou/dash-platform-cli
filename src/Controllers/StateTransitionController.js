@@ -1,4 +1,4 @@
-class StateTransitionUtility {
+class StateTransitionController {
   constructor(dashClient) {
     this.dashClient = dashClient;
   }
@@ -18,4 +18,4 @@ class StateTransitionUtility {
   }
 }
 
-module.exports = StateTransitionUtility;
+module.exports = StateTransitionController;
