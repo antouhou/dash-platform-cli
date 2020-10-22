@@ -23,4 +23,6 @@ DAPI_SEEDS environment variable. It can contain multiple addresses separated by 
 
 `./bin/dash identity get [identity_id]` - get an identity by its base58-encoded id
 
+`./bin/dash wallet send [privateKey] [addressTo] [amount]` - send funds from a private key to an address
+
 If you need more commands, please post an issue to this repo.
