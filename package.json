@@ -11,7 +11,8 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "dash": "~3.16.0-dev.1",
+    "@dashevo/dpp": "^0.16.0",
+    "dash": "~3.16.2",
     "yargs": "~16.0.0"
   },
   "devDependencies": {

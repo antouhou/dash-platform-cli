@@ -12,9 +12,13 @@ class StateTransitionController {
     const { dashClient } = this;
     const { dpp } = dashClient.platform;
     const parsedSt = await dpp.stateTransition
-      .createFromSerialized(stHex, { skipValidation: true });
+      .createFromBuffer(Buffer.from(stHex, 'hex'));
 
     console.dir(parsedSt.toObject(), { depth: 100 });
+
+    if (parsedSt.getIdentityId) {
+      console.log('Identity id:', parsedSt.getIdentityId().toString());
+    }
   }
 }
 

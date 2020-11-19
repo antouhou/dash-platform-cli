@@ -49,6 +49,22 @@ const Controllers = require('./Controllers/Controllers');
     }, async (argv) => {
       await controllers.wallet.send(argv.privateKey, argv.addressTo, argv.amount);
     })
+    .command('documents get [contractId] [documentType] [queryString]', 'search through documents', (yargs) => {
+      yargs.positional('contractId', {
+        describe: 'contract Id to search documents',
+        type: 'string'
+      });
+      yargs.positional('documentType', {
+        describe: 'document type',
+        type: 'string'
+      });
+      yargs.positional('queryString', {
+        describe: 'document query string',
+        type: 'string'
+      });
+    }, async (argv) => {
+      await controllers.documents.get(argv.contractId, argv.documentType, argv.queryString);
+    })
     .option('verbose', {
       alias: 'v',
       type: 'boolean',

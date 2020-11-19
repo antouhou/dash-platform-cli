@@ -4,6 +4,7 @@ const StateTransitionController = require('./StateTransitionController');
 const IdentityController = require('./IdentityController');
 const BlockController = require('./BlockController');
 const WalletController = require('./WalletController');
+const DocumentController = require('./DocumentController');
 
 /**
  * @class Controllers
@@ -18,6 +19,7 @@ class Controllers {
     this.identities = new IdentityController(this.dash);
     this.blocks = new BlockController(this.dash);
     this.wallet = new WalletController(options);
+    this.documents = new DocumentController(this.dash);
   }
 }
 
