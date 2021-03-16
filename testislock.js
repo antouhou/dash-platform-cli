@@ -8,6 +8,8 @@ const client = new ZMQClient('127.0.0.1', 20301, { });
 const testPrivKey = 'cRhCaxzGmkJHDeQwwn71cLfmq1ssM8yNaCy3Dzx6xnu8RLrLCMvy';
 const testAddress = 'yTFraC61Q2xrhywxp2ePZt4egtF8xSKm4M';
 
+const Dash = require('dash');
+
 const rpcOptions = {
   host: '127.0.0.1',
   port: 20302,
@@ -17,12 +19,22 @@ const rpcOptions = {
 };
 const coreRpcClient = new DashdRPC(rpcOptions);
 
+const dashClientOptions = {
+  seeds: ['127.0.0.1:3000'],
+  wallet: { privateKey: testPrivKey }
+};
+const dashClient = new Dash.Client(dashClientOptions);
+
 (async () => {
   client.on('error', (e) => {
     console.error(e);
   });
-  console.log('Connecting to the client');
-  await client.start();
+  console.log('Connecting to the client and instantiating wallet-lib');
+  const [account] = await Promise.all([
+    dashClient.getWalletAccount(),
+    client.start()
+  ]);
+
   console.log('Connected');
   client.subscribe(ZMQClient.TOPICS.rawtxlocksig);
   client.on(ZMQClient.TOPICS.rawtxlocksig, async (rawTxLockSigMessage) => {
@@ -60,14 +72,17 @@ const coreRpcClient = new DashdRPC(rpcOptions);
 
     console.log(txHash, 'is verified', isVerified);
   });
+  // account.sendToAddress();
 
-  console.log('Importing private key');
-  let res = await coreRpcClient.importPrivKey(testPrivKey);
-  console.log('Private key imported');
-
-  console.log('Creating a transaction');
-  res = await coreRpcClient.sendToAddress(testAddress, 1000);
-  console.log('Tx created:', res.result);
+  const tx = await account.createTransaction({ recipient: testAddress, satoshis: 12000 });
+  console.log(await account.broadcastTransaction(tx));
+  // console.log('Importing private key');
+  // let res = await coreRpcClient.importPrivKey(testPrivKey);
+  // console.log('Private key imported');
+  //
+  // console.log('Creating a transaction');
+  // res = await coreRpcClient.sendToAddress(testAddress, 1000);
+  // console.log('Tx created:', res.result);
 })().catch((e) => {
   console.error(e);
   process.exit();

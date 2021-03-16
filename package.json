@@ -15,7 +15,7 @@
     "@dashevo/dashd-rpc": "^2.1.1",
     "@dashevo/dashd-zmq": "^1.0.1",
     "@dashevo/dpp": "^0.17.0",
-    "dash": "~3.17.0",
+    "dash": "~3.19.0-dev.1",
     "yargs": "~16.0.0",
     "zeromq": "^5.2.0"
   },
