@@ -11,9 +11,13 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@dashevo/dpp": "^0.16.0",
-    "dash": "~3.16.2",
-    "yargs": "~16.0.0"
+    "@dashevo/dashcore-lib": "^0.19.19",
+    "@dashevo/dashd-rpc": "^2.1.1",
+    "@dashevo/dashd-zmq": "^1.0.1",
+    "@dashevo/dpp": "^0.17.0",
+    "dash": "~3.17.0",
+    "yargs": "~16.0.0",
+    "zeromq": "^5.2.0"
   },
   "devDependencies": {
     "eslint": "^7.2.0",
