@@ -11,11 +11,11 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@dashevo/dashcore-lib": "0.19.23",
+    "@dashevo/dashcore-lib": "0.19.25",
     "@dashevo/dashd-rpc": "2.1.1",
     "@dashevo/dashd-zmq": "1.0.1",
-    "@dashevo/dpp": "0.19.0",
-    "dash": "3.19.1",
+    "@dashevo/dpp": "0.21.0-dev.4",
+    "dash": "3.21.0-dev.5",
     "yargs": "16.0.0",
     "zeromq": "5.2.0"
   },

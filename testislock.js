@@ -75,7 +75,12 @@ const dashClient = new Dash.Client(dashClientOptions);
   // account.sendToAddress();
 
   const tx = await account.createTransaction({ recipient: testAddress, satoshis: 12000 });
-  console.log(await account.broadcastTransaction(tx));
+  const [result, instalock] = await Promise.all([
+    account.broadcastTransaction(tx),
+    account.waitForInstantLock(tx.hash)
+  ]);
+  // console.log(await account.broadcastTransaction(tx));
+  // account.waitForInstantLock(tx.hash);
   // console.log('Importing private key');
   // let res = await coreRpcClient.importPrivKey(testPrivKey);
   // console.log('Private key imported');
